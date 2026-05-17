@@ -2,6 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ServicioController;
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::resource('servicios', ServicioController::class);
+
+});
 
 Route::get('/', function () {
     return view('welcome');
