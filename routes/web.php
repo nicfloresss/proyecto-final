@@ -3,10 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\CitaController;
 
 Route::middleware(['auth'])->group(function () {
 
     Route::resource('servicios', ServicioController::class);
+    Route::resource('citas', CitaController::class);
 
 });
 
