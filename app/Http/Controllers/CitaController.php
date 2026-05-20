@@ -71,24 +71,49 @@ class CitaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit(Cita $cita)
+{
+    $clientes = User::where('role', 'cliente')->get();
+
+    $manicuristas = User::where('role', 'manicurista')->get();
+
+    $servicios = Servicio::all();
+
+    return view('citas.edit', compact(
+        'cita',
+        'clientes',
+        'manicuristas',
+        'servicios'
+    ));
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function update(Request $request, Cita $cita)
+{
+    $request->validate([
+        'cliente_id' => 'required',
+        'manicurista_id' => 'required',
+        'servicio_id' => 'required',
+        'fecha' => 'required|date',
+        'hora' => 'required'
+    ]);
+
+    $cita->update($request->all());
+
+    return redirect()->route('citas.index')
+                     ->with('success', 'Cita actualizada');
+}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy(Cita $cita)
+{
+    $cita->delete();
+
+    return redirect()->route('citas.index')
+                     ->with('success', 'Cita eliminada');
+}
 }
