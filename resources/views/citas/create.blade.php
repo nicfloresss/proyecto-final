@@ -5,10 +5,26 @@
         <h1 class="text-3xl font-bold mb-6">
             Nueva Cita
         </h1>
+@if ($errors->any())
 
+    <div class="bg-red-200 text-red-800 p-4 rounded mb-4">
+
+        <ul>
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
         <form action="{{ route('citas.store') }}"
               method="POST"
-              class="bg-white p-6 rounded shadow">
+              enctype="multipart/form-data">
 
             @csrf
 
@@ -71,6 +87,7 @@
                 </label>
 
                 <select name="servicio_id"
+                        id="servicio_id"
                         required
                         class="w-full border rounded p-2">
 
@@ -80,8 +97,11 @@
 
                     @foreach($servicios as $servicio)
 
-                        <option value="{{ $servicio->id }}">
+                        <option value="{{ $servicio->id }}"
+                                data-nombre="{{ strtolower($servicio->nombre) }}">
+
                             {{ $servicio->nombre }}
+
                         </option>
 
                     @endforeach
@@ -116,7 +136,21 @@
 
             </div>
 
-            <button class="bg-pink-500 text-white px-4 py-2 rounded">
+            <div class="mb-4 hidden" id="imagen-container">
+
+                <label class="block mb-2">
+                    Foto actual de uñas
+                </label>
+
+                <input type="file"
+                       name="imagen"
+                       accept="image/*"
+                       class="w-full border rounded p-2">
+
+            </div>
+
+            <button type="submit"
+        class="bg-pink-500 text-white px-4 py-2 rounded">
 
                 Guardar Cita
 
@@ -125,5 +159,43 @@
         </form>
 
     </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const servicioSelect =
+                document.getElementById('servicio_id');
+
+            const imagenContainer =
+                document.getElementById('imagen-container');
+
+            servicioSelect.addEventListener('change', function () {
+
+                const selectedOption =
+                    servicioSelect.options[servicioSelect.selectedIndex];
+
+                const nombre =
+                    selectedOption.dataset.nombre || '';
+
+                if (
+                    nombre.includes('uña') ||
+                    nombre.includes('gelish') ||
+                    nombre.includes('acrilica')
+                ) {
+
+                    imagenContainer.classList.remove('hidden');
+
+                } else {
+
+                    imagenContainer.classList.add('hidden');
+
+                }
+
+            });
+
+        });
+
+    </script>
 
 </x-app-layout>

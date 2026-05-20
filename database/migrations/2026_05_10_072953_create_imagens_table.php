@@ -20,6 +20,7 @@ return new class extends Migration
               ->nullable()
               ->constrained()
               ->onDelete('cascade');
+              
         $table->string('nombre');
         $table->string('ruta');
         $table->timestamps();

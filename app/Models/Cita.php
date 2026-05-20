@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Imagen;
 
 class Cita extends Model
 {
@@ -33,4 +34,9 @@ class Cita extends Model
     {
         return $this->belongsTo(Servicio::class);
     }
-}
+
+    public function imagenes()
+    {
+        return $this->hasMany(Imagen::class);
+    }
+}   

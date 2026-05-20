@@ -29,9 +29,9 @@ class CitaController extends Controller
      */
     public function create()
 {
-    $clientes = User::where('role', 'cliente')->get();
+    $clientes = User::query()->where('role', 'cliente')->get();
 
-    $manicuristas = User::where('role', 'manicurista')->get();
+    $manicuristas = User::query()->where('role', 'manicurista')->get();
 
     $servicios = Servicio::all();
 
@@ -53,7 +53,7 @@ class CitaController extends Controller
         'servicio_id' => 'required',
         'fecha' => 'required|date',
         'hora' => 'required',
-        'imagen' => 'nullable|image|max:2048'
+        'imagen' => 'nullable|file|max:2048'
     ]);
 
     $cita = Cita::create([
@@ -72,7 +72,7 @@ class CitaController extends Controller
         $ruta = $archivo->store('imagenes', 'public');
 
         Imagen::create([
-            'user_id' => $request->user()->id,
+            'user_id' => auth()->id(),
             'cita_id' => $cita->id,
             'nombre' => $archivo->getClientOriginalName(),
             'ruta' => $ruta
@@ -82,33 +82,6 @@ class CitaController extends Controller
     return redirect()->route('citas.index')
                      ->with('success', 'Cita creada correctamente');
 }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cita $cita)
-{
-    $clientes = User::where('role', 'cliente')->get();
-
-    $manicuristas = User::where('role', 'manicurista')->get();
-
-    $servicios = Servicio::all();
-
-    return view('citas.edit', compact(
-        'cita',
-        'clientes',
-        'manicuristas',
-        'servicios'
-    ));
-}
-
     /**
      * Update the specified resource in storage.
      */
@@ -133,7 +106,7 @@ class CitaController extends Controller
      */
     public function destroy(Cita $cita)
 {
-    $cita->delete();
+    Cita::destroy($cita->id);
 
     return redirect()->route('citas.index')
                      ->with('success', 'Cita eliminada');

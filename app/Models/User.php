@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Servicio;
-use App\Models\Cita;
-use App\Models\Imagen;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,9 +13,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'password',
         'telefono',
-        'role',
-        'password'
+        'role'
     ];
 
     protected $hidden = [

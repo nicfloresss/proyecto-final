@@ -59,6 +59,12 @@
                             </td>
                             <td class="space-x-2">
 
+                                <a href="{{ route('citas.show', $cita) }}"
+   class="text-green-500">
+
+    Ver
+
+</a>
                                 <a href="{{ route('citas.edit', $cita) }}"
                                    class="text-blue-500">
 
