@@ -28,6 +28,7 @@
                         <th>Servicio</th>
                         <th>Fecha</th>
                         <th>Hora</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
 
@@ -56,7 +57,29 @@
                             <td>
                                 {{ $cita->hora }}
                             </td>
+                            <td class="space-x-2">
 
+                                <a href="{{ route('citas.edit', $cita) }}"
+                                   class="text-blue-500">
+
+                                    Editar
+
+                                </a>
+
+                                <form action="{{ route('citas.destroy', $cita) }}"
+                                      method="POST"
+                                      class="inline">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button class="text-red-500">
+
+                                        Eliminar
+
+                                    </button>
+
+                                </form>
                         </tr>
 
                     @endforeach
