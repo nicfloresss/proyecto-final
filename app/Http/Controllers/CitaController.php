@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cita;
 use App\Models\User;
 use App\Models\Servicio;
+use App\Models\Imagen;
 use Illuminate\Http\Request;
 
 class CitaController extends Controller
@@ -51,15 +52,36 @@ class CitaController extends Controller
         'manicurista_id' => 'required',
         'servicio_id' => 'required',
         'fecha' => 'required|date',
-        'hora' => 'required'
+        'hora' => 'required',
+        'imagen' => 'nullable|image|max:2048'
     ]);
 
-    Cita::create($request->all());
+    $cita = Cita::create([
+        'cliente_id' => $request->cliente_id,
+        'manicurista_id' => $request->manicurista_id,
+        'servicio_id' => $request->servicio_id,
+        'fecha' => $request->fecha,
+        'hora' => $request->hora,
+        'estado' => 'pendiente'
+    ]);
+
+    if ($request->hasFile('imagen')) {
+
+        $archivo = $request->file('imagen');
+
+        $ruta = $archivo->store('imagenes', 'public');
+
+        Imagen::create([
+            'user_id' => $request->user()->id,
+            'cita_id' => $cita->id,
+            'nombre' => $archivo->getClientOriginalName(),
+            'ruta' => $ruta
+        ]);
+    }
 
     return redirect()->route('citas.index')
                      ->with('success', 'Cita creada correctamente');
 }
-
     /**
      * Display the specified resource.
      */

@@ -6,9 +6,9 @@
             Nuevo Servicio
         </h1>
 
-        <form action="{{ route('servicios.store') }}"
-              method="POST"
-              class="bg-white p-6 rounded shadow">
+       <form action="{{ route('citas.store') }}"
+      method="POST"
+      enctype="multipart/form-data">
 
             @csrf
 
@@ -68,7 +68,18 @@
                 @enderror
 
             </div>
+<div class="mb-4">
 
+    <label class="block mb-2">
+        Foto actual de uñas
+    </label>
+
+    <input type="file"
+           name="imagen"
+           accept="image/*"
+           class="w-full border rounded p-2">
+
+</div>
             <button class="bg-pink-500 text-white px-4 py-2 rounded">
 
                 Guardar Servicio
