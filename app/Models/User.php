@@ -18,6 +18,21 @@ class User extends Authenticatable
         'role'
     ];
 
+    public function isAdmin()
+{
+    return $this->role === 'admin';
+}
+
+public function isCliente()
+{
+    return $this->role === 'cliente';
+}
+
+public function isManicurista()
+{
+    return $this->role === 'manicurista';
+}
+
     protected $hidden = [
         'password',
         'remember_token',

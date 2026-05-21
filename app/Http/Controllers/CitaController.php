@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CitaCreadaMail;
 use App\Models\Cita;
 use App\Models\User;
 use App\Models\Servicio;
@@ -77,11 +78,15 @@ class CitaController extends Controller
             'nombre' => $archivo->getClientOriginalName(),
             'ruta' => $ruta
         ]);
+
+        Mail::to($cita->cliente->email)
+    ->send(new CitaCreadaMail($cita));
     }
 
     return redirect()->route('citas.index')
                      ->with('success', 'Cita creada correctamente');
 }
+
     /**
      * Update the specified resource in storage.
      */
@@ -99,6 +104,17 @@ class CitaController extends Controller
 
     return redirect()->route('citas.index')
                      ->with('success', 'Cita actualizada');
+}
+public function show(Cita $cita)
+{
+    $cita->load([
+        'cliente',
+        'manicurista',
+        'servicio',
+        'imagenes'
+    ]);
+
+    return view('citas.show', compact('cita'));
 }
 
     /**

@@ -82,10 +82,10 @@ class ServicioController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Servicio $servicio)
-{
-    $servicio->delete();
+    {
+        Servicio::destroy($servicio->id);
 
-    return redirect()->route('servicios.index')
-                     ->with('success', 'Servicio eliminado');
-}
+        return redirect()->route('servicios.index')
+                         ->with('success', 'Servicio eliminado');
+    }
 }

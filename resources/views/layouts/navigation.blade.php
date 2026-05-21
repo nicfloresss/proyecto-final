@@ -11,6 +11,26 @@
                 </div>
 
                 <!-- Navigation Links -->
+                @auth
+
+    <a href="{{ route('citas.index') }}"
+       class="text-gray-700 px-3">
+
+        Citas
+
+    </a>
+
+@endif
+@if(auth()->user()->isAdmin())
+
+    <a href="{{ route('servicios.index') }}"
+       class="text-gray-700 px-3">
+
+        Servicios
+
+    </a>
+
+@endif
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}

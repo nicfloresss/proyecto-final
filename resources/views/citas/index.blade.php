@@ -71,6 +71,7 @@
                                     Editar
 
                                 </a>
+                                
 
                                 <form action="{{ route('citas.destroy', $cita) }}"
                                       method="POST"
