@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\CitaCreadaMail;
 use App\Models\Cita;
 use App\Models\User;
 use App\Models\Servicio;
 use App\Models\Imagen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CitaController extends Controller
 {
@@ -46,7 +46,7 @@ class CitaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+   public function store(Request $request)
 {
     $request->validate([
         'cliente_id' => 'required',
@@ -78,9 +78,19 @@ class CitaController extends Controller
             'nombre' => $archivo->getClientOriginalName(),
             'ruta' => $ruta
         ]);
+    }
+
+    try {
 
         Mail::to($cita->cliente->email)
-    ->send(new CitaCreadaMail($cita));
+            ->send(new CitaCreadaMail($cita));
+
+    } catch (\Exception $e) {
+
+        return back()->with(
+            'error',
+            'La cita se creó pero el correo no pudo enviarse.'
+        );
     }
 
     return redirect()->route('citas.index')
