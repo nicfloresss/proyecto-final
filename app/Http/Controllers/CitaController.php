@@ -73,7 +73,7 @@ class CitaController extends Controller
         $ruta = $archivo->store('imagenes', 'public');
 
         Imagen::create([
-            'user_id' => auth()->id(),
+            'user_id' => $request->user()->id,          
             'cita_id' => $cita->id,
             'nombre' => $archivo->getClientOriginalName(),
             'ruta' => $ruta

@@ -5,6 +5,7 @@
         <h1 class="text-3xl font-bold mb-6">
             Servicios
         </h1>
+@if(auth()->user()->role === 'admin')
 
         <a href="{{ route('servicios.create') }}"
            class="bg-pink-500 text-white px-4 py-2 rounded">
@@ -12,7 +13,7 @@
             Nuevo Servicio
 
         </a>
-
+@endif
         <div class="mt-6 bg-white shadow rounded p-4">
 
             <table class="w-full">
@@ -38,6 +39,7 @@
                             <td>
                                 ${{ $servicio->precio_base }}
                             </td>
+@if(auth()->user()->role === 'admin')
 
                             <td class="space-x-2">
 
@@ -64,6 +66,7 @@
                                 </form>
 
                             </td>
+@if(auth()->user()->role === 'admin')
 
                         </tr>
 
