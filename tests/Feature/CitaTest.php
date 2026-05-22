@@ -51,4 +51,56 @@ class CitaTest extends TestCase
             'hora' => '10:00'
         ]);
     }
+
+    public function test_validacion_falla_si_faltan_datos()
+{
+    /** @var \App\Models\User $cliente */
+    $cliente = User::factory()->createOne([
+        'role' => 'cliente'
+    ]);
+
+    $response = $this->actingAs($cliente)
+        ->post('/citas', []);
+
+    $response->assertSessionHasErrors([
+        'cliente_id',
+        'manicurista_id',
+        'servicio_id',
+        'fecha',
+        'hora'
+    ]);
+}
+
+public function test_usuario_puede_eliminar_cita()
+{
+    /** @var \App\Models\User $cliente */
+    $cliente = User::factory()->createOne([
+        'role' => 'cliente'
+    ]);
+
+    /** @var \App\Models\User $manicurista */
+    $manicurista = User::factory()->createOne([
+        'role' => 'manicurista'
+    ]);
+
+    $servicio = Servicio::factory()->create();
+
+    $cita = \App\Models\Cita::create([
+        'cliente_id' => $cliente->id,
+        'manicurista_id' => $manicurista->id,
+        'servicio_id' => $servicio->id,
+        'fecha' => '2026-05-25',
+        'hora' => '10:00',
+        'estado' => 'pendiente'
+    ]);
+
+    $response = $this->actingAs($cliente)
+        ->delete('/citas/' . $cita->id);
+
+    $response->assertRedirect('/citas');
+
+    $this->assertDatabaseMissing('citas', [
+        'id' => $cita->id
+    ]);
+}
 }
