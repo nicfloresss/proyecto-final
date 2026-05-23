@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Servicio;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 
 class CitaTest extends TestCase
 {
@@ -20,6 +21,8 @@ class CitaTest extends TestCase
 
     public function test_usuario_puede_crear_cita()
     {
+        Mail::fake();
+
         /** @var User $cliente */
         $cliente = User::factory()->createOne([
             'role' => 'cliente'
@@ -73,6 +76,8 @@ class CitaTest extends TestCase
 
 public function test_usuario_puede_eliminar_cita()
 {
+    Mail::fake();
+
     /** @var \App\Models\User $cliente */
     $cliente = User::factory()->createOne([
         'role' => 'cliente'
@@ -94,13 +99,13 @@ public function test_usuario_puede_eliminar_cita()
         'estado' => 'pendiente'
     ]);
 
-    $response = $this->actingAs($cliente)
-        ->delete('/citas/' . $cita->id);
+   $response = $this->actingAs($cliente)
+    ->delete('/citas/' . $cita->id);
 
-    $response->assertRedirect('/citas');
+$response->assertRedirect('/citas');
 
-    $this->assertDatabaseMissing('citas', [
-        'id' => $cita->id
-    ]);
+$this->assertSoftDeleted('citas', [
+    'id' => $cita->id
+]);
 }
 }
