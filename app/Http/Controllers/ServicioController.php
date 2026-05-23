@@ -6,7 +6,8 @@ use App\Models\Servicio;
 use Illuminate\Http\Request;
 
 class ServicioController extends Controller
-{    /**
+{  
+      /**
      * Display a listing of the resource.
      */
    public function index()
@@ -33,9 +34,9 @@ class ServicioController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'nombre' => 'required',
-        'descripcion' => 'required',
-        'precio_base' => 'required|numeric'
+'nombre' => 'required|max:255',
+'descripcion' => 'required|max:1000',
+        'precio_base' => 'required|numeric|min:0'
     ]);
 
     Servicio::create([
@@ -75,7 +76,7 @@ class ServicioController extends Controller
 {
     $request->validate([
         'nombre' => 'required|max:255',
-        'descripcion' => 'required',
+        'descripcion' => 'required|max:1000',
         'precio_base' => 'required|numeric|min:1'
     ]);
 
