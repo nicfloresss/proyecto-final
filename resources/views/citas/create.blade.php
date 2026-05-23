@@ -37,7 +37,13 @@
                 <select name="cliente_id"
                         required
                         class="w-full border rounded p-2">
+@error(cliente_id) 
 
+    <p class="text-red-500 text-sm mt-1">
+        {{ $message }}
+    </p>
+    
+@enderror
                     <option value="">
                         Selecciona cliente
                     </option>
@@ -63,7 +69,13 @@
                 <select name="manicurista_id"
                         required
                         class="w-full border rounded p-2">
+@error('manicurista_id') 
 
+    <p class="text-red-500 text-sm mt-1">
+        {{ $message }}
+    </p>
+    
+@enderror
                     <option value="">
                         Selecciona manicurista
                     </option>
@@ -90,7 +102,13 @@
                         id="servicio_id"
                         required
                         class="w-full border rounded p-2">
+@error('servicio_id') 
 
+    <p class="text-red-500 text-sm mt-1">
+        {{ $message }}
+    </p>
+    
+@enderror
                     <option value="">
                         Selecciona servicio
                     </option>
@@ -120,7 +138,13 @@
                        name="fecha"
                        required
                        class="w-full border rounded p-2">
+@error(fecha) 
 
+    <p class="text-red-500 text-sm mt-1">
+        {{ $message }}
+    </p>
+    
+@enderror
             </div>
 
             <div class="mb-4">
@@ -133,7 +157,13 @@
                        name="hora"
                        required
                        class="w-full border rounded p-2">
+@error('hora') 
 
+    <p class="text-red-500 text-sm mt-1">
+        {{ $message }}
+    </p>
+    
+@enderror
             </div>
 
             <div class="mb-4 hidden" id="imagen-container">
@@ -146,7 +176,13 @@
                        name="imagen"
                        accept="image/*"
                        class="w-full border rounded p-2">
+@error('imagen') 
 
+    <p class="text-red-500 text-sm mt-1">
+        {{ $message }}
+    </p>
+    
+@enderror   
             </div>
 
             <button type="submit"

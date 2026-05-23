@@ -1,5 +1,21 @@
 <x-app-layout>
+@if ($errors->any())
 
+    <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+
+        <ul>
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
     <div class="py-6 px-6 max-w-2xl mx-auto">
 
         <h1 class="text-3xl font-bold mb-6">
@@ -23,7 +39,13 @@
                            name="nombre"
                            required
                            class="w-full border rounded p-2">
+                        @error('nombre')
 
+    <p class="text-red-500 text-sm mt-1">
+        {{ $message }}
+    </p>
+
+@enderror
                 </div>
 
                 <div class="mb-4">
@@ -35,7 +57,13 @@
                     <textarea name="descripcion"
                               required
                               class="w-full border rounded p-2"></textarea>
+@error('descripcion')
 
+    <p class="text-red-500 text-sm mt-1">
+        {{ $message }}
+    </p>
+
+@enderror
                 </div>
 
                 <div class="mb-4">
@@ -49,7 +77,13 @@
                            name="precio_base"
                            required
                            class="w-full border rounded p-2">
+@error('precio_base')
 
+    <p class="text-red-500 text-sm mt-1">
+        {{ $message }}
+    </p>
+
+@enderror
                 </div>
 
                 <button type="submit"

@@ -10,6 +10,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('servicios', ServicioController::class);
     Route::resource('citas', CitaController::class);
 
+    
 });
 
 Route::get('/', function () {
