@@ -1,17 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Servicio;
 use Illuminate\Http\Request;
 
 class ServicioController extends Controller
-{
-    /**
+{    /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index()
 {
-    $servicios = Servicio::all();
+    $servicios = Servicio::with([
+        'citas',
+        'users'
+    ])->get();
 
     return view('servicios.index', compact('servicios'));
 }
@@ -50,16 +53,20 @@ class ServicioController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $servicio = Servicio::with(['citas', 'users'])->findOrFail($id);
+
+        return view('servicios.show', compact('servicio'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Servicio $servicio)
-{
-    return view('servicios.edit', compact('servicio'));
-}
+   public function edit(Servicio $servicio)
+    {
+        $servicio->load(['citas', 'users']);
+
+        return view('servicios.edit', compact('servicio'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -83,8 +90,7 @@ class ServicioController extends Controller
      */
     public function destroy(Servicio $servicio)
     {
-        Servicio::destroy($servicio->id);
-
+        $servicio->delete();
         return redirect()->route('servicios.index')
                          ->with('success', 'Servicio eliminado');
     }
