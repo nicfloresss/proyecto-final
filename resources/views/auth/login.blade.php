@@ -121,7 +121,7 @@
             </div>
 
             <p style="text-align: center; font-size: 0.75rem; color: #be185d; margin-top: 1.25rem;">
-                    Consientete con nuestros servicios de belleza. ¡Te esperamos! 🌷
+                    Consientete con nuestros servicios de belleza. ¡Te esperamos! 
             
             </p>
 

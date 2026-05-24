@@ -3,7 +3,7 @@
     <div class="py-8 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
 
         <div class="mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">🔍 Detalle de Cita</h1>
+            <h1 class="text-3xl font-bold text-gray-800"> Detalle de Cita</h1>
             <p class="text-sm text-gray-500 mt-1">Información completa de la cita</p>
         </div>
 
@@ -40,7 +40,7 @@
 
             @if($cita->imagenes->count())
                 <div class="mt-6">
-                    <h2 class="text-lg font-bold text-gray-700 mb-4">📷 Fotos</h2>
+                    <h2 class="text-lg font-bold text-gray-700 mb-4"> Fotos</h2>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         @foreach($cita->imagenes as $imagen)
                             <div>

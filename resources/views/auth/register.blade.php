@@ -79,7 +79,7 @@
 
             {{-- Encabezado --}}
             <div style="text-align: center; margin-bottom: 1.75rem;">
-                <div class="icon-wrap">✨</div>
+                <div class="icon-wrap"></div>
                 <h1 style="font-size: 1.5rem; font-weight: 800; color: #831843; margin: 0;">Únete a Salón Bella</h1>
                 <p style="font-size: 0.85rem; color: #be185d; margin-top: 0.25rem;">Crea tu cuenta para agendar tus citas</p>
             </div>
@@ -145,7 +145,7 @@
             </div>
 
             <p style="text-align: center; font-size: 0.75rem; color: #be185d; margin-top: 1.25rem;">
-                ✨ Hecho con amor para tu salón
+                    Sé parte de nosotros !!!
             </p>
         </div>
     </div>

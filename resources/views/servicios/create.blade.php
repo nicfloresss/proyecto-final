@@ -3,7 +3,7 @@
     <div class="py-8 px-4 sm:px-6 lg:px-8 max-w-2xl mx-auto">
 
         <div class="mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">✨ Crear Servicio</h1>
+            <h1 class="text-3xl font-bold text-gray-800"> Crear Servicio</h1>
             <p class="text-sm text-gray-500 mt-1">Agrega un nuevo servicio al catálogo</p>
         </div>
 
@@ -58,7 +58,7 @@
                 <div class="pt-2">
                     <button type="submit"
                             class="w-full sm:w-auto bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-2.5 rounded-lg shadow transition duration-200">
-                        💾 Guardar Servicio
+                         Guardar Servicio
                     </button>
                 </div>
 

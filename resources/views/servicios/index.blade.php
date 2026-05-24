@@ -5,7 +5,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
 
             <div>
-                <h1 class="text-3xl font-bold text-gray-800">✨ Servicios</h1>
+                <h1 class="text-3xl font-bold text-gray-800"> Servicios</h1>
                 <p class="text-sm text-gray-500 mt-1">Catálogo de servicios disponibles</p>
             </div>
 

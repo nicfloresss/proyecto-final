@@ -13,11 +13,11 @@
         <hr style="border: 0; border-top: 1px solid #eee;">
         
         <div style="background-color: #fff0f5; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #e91e63;">
-            <p style="margin: 5px 0;"><strong>💝 Servicio:</strong> {{ $cita->servicio->nombre ?? 'Servicio solicitado' }}</p>
-            <p style="margin: 5px 0;"><strong>📅 Fecha:</strong> {{ \Carbon\Carbon::parse($cita->fecha)->format('d/m/Y') }}</p>
-            <p style="margin: 5px 0;"><strong>⏰ Hora:</strong> {{ \Carbon\Carbon::parse($cita->hora)->format('g:i A') }}</p>
+            <p style="margin: 5px 0;"><strong> Servicio:</strong> {{ $cita->servicio->nombre ?? 'Servicio solicitado' }}</p>
+            <p style="margin: 5px 0;"><strong> Fecha:</strong> {{ \Carbon\Carbon::parse($cita->fecha)->format('d/m/Y') }}</p>
+            <p style="margin: 5px 0;"><strong> Hora:</strong> {{ \Carbon\Carbon::parse($cita->hora)->format('g:i A') }}</p>
             @if(isset($cita->manicurista))
-                <p style="margin: 5px 0;"><strong>👩‍🎨 Profesional:</strong> {{ $cita->manicurista->name }}</p>
+                <p style="margin: 5px 0;"><strong> Profesional:</strong> {{ $cita->manicurista->name }}</p>
             @endif
         </div>
         
