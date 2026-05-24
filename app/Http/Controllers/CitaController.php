@@ -32,7 +32,7 @@ class CitaController extends Controller
 {
     $clientes = User::query()->where('role', 'cliente')->get();
 
-    $manicuristas = User::query()->where('role', 'manicurista')->get();
+    $manicuristas = User::query()->where('role', '=', 'manicurista')->get();
 
     $servicios = Servicio::all();
 
@@ -127,6 +127,31 @@ public function show(Cita $cita)
     return view('citas.show', compact('cita'));
 }
 
+public function edit(Cita $cita)
+{
+    $cita->load([
+        'cliente',
+        'manicurista',
+        'servicio',
+        'imagenes'
+    ]);
+
+    $clientes = User::query()->where('role', 'cliente')->get();
+
+    $manicuristas = User::query()->where('role', 'manicurista')->get();
+
+    $servicios = Servicio::with([
+        'citas',
+        'users'
+    ])->get();
+
+    return view('citas.edit', compact(
+        'cita',
+        'clientes',
+        'manicuristas',
+        'servicios'
+    ));
+}
     /**
      * Remove the specified resource from storage.
      */
