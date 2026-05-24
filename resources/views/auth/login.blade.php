@@ -59,8 +59,8 @@
         <div style="width: 100%; max-width: 26rem;">
 
             <div style="text-align: center; margin-bottom: 1.75rem;">
-                <div class="icon-wrap">💅</div>
-                <h1 style="font-size: 1.5rem; font-weight: 800; color: #831843; margin: 0;">Salón Bella</h1>
+                <div class="icon-wrap"></div>
+                <h1 style="font-size: 1.5rem; font-weight: 800; color: #831843; margin: 0;">Salón Beauty</h1>
                 <p style="font-size: 0.85rem; color: #be185d; margin-top: 0.25rem;">Inicia sesión para continuar</p>
             </div>
 
@@ -105,13 +105,26 @@
 
                     <hr class="divider">
 
-                    <button type="submit" class="btn-pink-full">🌸 Iniciar sesión</button>
+                    <button type="submit" class="btn-pink-full"> Iniciar sesión</button>
+                    @if (Route::has('register'))
+                        <div style="display: flex; align-items: center; text-align: center; margin: 0.5rem 0;">
+                            <hr style="flex-grow: 1; border: none; border-top: 1px solid #fbcfe8;">
+                            <span style="padding: 0 0.5rem; font-size: 0.75rem; color: #be185d; font-weight: 600;">¿No tienes cuenta?</span>
+                            <hr style="flex-grow: 1; border: none; border-top: 1px solid #fbcfe8;">
+                        </div>
+
+                        <a href="{{ route('register') }}" class="btn-outline-pink-full">
+                            ✨ Crear cuenta nueva
+                        </a>
+                    @endif
                 </form>
             </div>
 
             <p style="text-align: center; font-size: 0.75rem; color: #be185d; margin-top: 1.25rem;">
-                ✨ Hecho con amor para tu salón
+                    Consientete con nuestros servicios de belleza. ¡Te esperamos! 🌷
+            
             </p>
+
         </div>
     </div>
 </x-guest-layout>
