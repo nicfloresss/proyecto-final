@@ -1,47 +1,117 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <style>
+        body { background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fbcfe8 100%) !important; min-height: 100vh; }
+        .login-card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 60px rgba(219, 39, 119, 0.15);
+            padding: 2.5rem 2rem;
+        }
+        .icon-wrap {
+            width: 3.5rem; height: 3.5rem;
+            background: linear-gradient(135deg, #ec4899, #be185d);
+            border-radius: 1rem;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+        .input-pink {
+            width: 100%;
+            border: 1.5px solid #fbcfe8;
+            border-radius: 0.75rem;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.875rem;
+            color: #1f2937;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .input-pink:focus {
+            border-color: #ec4899;
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.12);
+        }
+        .input-pink.error { border-color: #f87171; }
+        .btn-pink-full {
+            width: 100%;
+            background: linear-gradient(135deg, #ec4899, #db2777);
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+        .btn-pink-full:hover { opacity: 0.92; transform: translateY(-1px); }
+        .label-pink {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #9d174d;
+            margin-bottom: 0.35rem;
+        }
+        .error-msg { color: #e11d48; font-size: 0.75rem; margin-top: 0.3rem; }
+        .divider { border: none; border-top: 1px solid #fce7f3; margin: 1.25rem 0; }
+    </style>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem;">
+        <div style="width: 100%; max-width: 26rem;">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <div style="text-align: center; margin-bottom: 1.75rem;">
+                <div class="icon-wrap">💅</div>
+                <h1 style="font-size: 1.5rem; font-weight: 800; color: #831843; margin: 0;">Salón Bella</h1>
+                <p style="font-size: 0.85rem; color: #be185d; margin-top: 0.25rem;">Inicia sesión para continuar</p>
+            </div>
+
+            <div class="login-card">
+                <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                <form method="POST" action="{{ route('login') }}" style="display: flex; flex-direction: column; gap: 1.1rem;">
+                    @csrf
+
+                    <div>
+                        <label for="email" class="label-pink">Correo electrónico</label>
+                        <input id="email" type="email" name="email"
+                               value="{{ old('email') }}"
+                               required autofocus autocomplete="username"
+                               placeholder="tu@correo.com"
+                               class="input-pink {{ $errors->has('email') ? 'error' : '' }}">
+                        @error('email')<p class="error-msg">{{ $message }}</p>@enderror
+                    </div>
+
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                            <label for="password" class="label-pink" style="margin-bottom: 0;">Contraseña</label>
+                            @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}"
+                                   style="font-size: 0.75rem; color: #ec4899; font-weight: 600; text-decoration: none;">
+                                    ¿Olvidaste tu contraseña?
+                                </a>
+                            @endif
+                        </div>
+                        <input id="password" type="password" name="password"
+                               required autocomplete="current-password"
+                               placeholder="••••••••"
+                               class="input-pink {{ $errors->has('password') ? 'error' : '' }}">
+                        @error('password')<p class="error-msg">{{ $message }}</p>@enderror
+                    </div>
+
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input id="remember_me" type="checkbox" name="remember"
+                               style="width: 1rem; height: 1rem; accent-color: #ec4899;">
+                        <span style="font-size: 0.8rem; color: #be185d;">Recordarme</span>
+                    </label>
+
+                    <hr class="divider">
+
+                    <button type="submit" class="btn-pink-full">🌸 Iniciar sesión</button>
+                </form>
+            </div>
+
+            <p style="text-align: center; font-size: 0.75rem; color: #be185d; margin-top: 1.25rem;">
+                ✨ Hecho con amor para tu salón
+            </p>
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </div>
 </x-guest-layout>

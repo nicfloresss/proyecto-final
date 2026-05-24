@@ -6,7 +6,13 @@ use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\CitaController;
 
 Route::get('/', function () {
-    return view('welcome');
+
+    if (auth()->check()) {
+
+        return redirect('/dashboard');
+    }
+
+    return redirect('/login');
 });
 
 Route::get('/dashboard', function () {
