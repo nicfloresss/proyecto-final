@@ -35,19 +35,19 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div class="bg-gradient-to-br from-pink-500 to-pink-700 rounded-2xl p-5 text-white shadow-sm">
                 <p class="text-xs font-semibold opacity-80 mb-1">Citas hoy</p>
-                <p class="text-3xl font-bold">—</p>
+                <p class="text-3xl font-bold">{{ $citasHoyContador }}</p>
             </div>
             <div class="bg-pink-50 border border-pink-300 rounded-2xl p-5 shadow-sm">
                 <p class="text-xs font-semibold mb-1 text-pink-700">Servicios activos</p>
-                <p class="text-3xl font-bold text-pink-900">—</p>
+                <p class="text-3xl font-bold text-pink-900">{{ $serviciosActivosContador }}</p>
             </div>
             <div class="bg-pink-50 border border-pink-300 rounded-2xl p-5 shadow-sm">
                 <p class="text-xs font-semibold mb-1 text-pink-700">Clientes</p>
-                <p class="text-3xl font-bold text-pink-900">—</p>
+                <p class="text-3xl font-bold text-pink-900">{{ $clientesContador }}</p>
             </div>
             <div class="bg-pink-50 border border-pink-300 rounded-2xl p-5 shadow-sm">
                 <p class="text-xs font-semibold mb-1 text-pink-700">Este mes</p>
-                <p class="text-3xl font-bold text-pink-900">—</p>
+                <p class="text-3xl font-bold text-pink-900">{{ $citasMesContador }}</p>
             </div>
         </div>
 
@@ -75,18 +75,35 @@
                     <h2 class="font-bold text-base text-pink-900">📋 Próximas citas</h2>
                     <a href="{{ route('citas.index') }}" class="text-xs font-semibold text-pink-500 hover:text-pink-600">Ver todas →</a>
                 </div>
+                
                 <div class="space-y-3">
-                    <div class="flex items-center gap-3 p-3 rounded-xl bg-pink-50">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold bg-gradient-to-br from-pink-100 to-pink-200 text-pink-700">
-                            💆
+                    @forelse($proximasCitas as $cita)
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-pink-50">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold bg-gradient-to-br from-pink-100 to-pink-200 text-pink-700">
+                                💅
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-pink-900">{{ $cita->cliente->name ?? 'Cliente' }}</p>
+                                <p class="text-xs text-pink-700">{{ $cita->servicio->nombre ?? 'Servicio' }} — {{ \Carbon\Carbon::parse($cita->hora)->format('g:i A') }}</p>
+                            </div>
+                            <span class="bg-pink-200 text-pink-700 rounded-full px-2 py-0.5 text-[10px] font-semibold">
+                                {{ \Carbon\Carbon::parse($cita->fecha)->format('d/m') }}
+                            </span>
                         </div>
-                        <div class="flex-1">
-                            <p class="text-sm font-semibold text-pink-900">Sin citas aún</p>
-                            <p class="text-xs text-pink-700">Agrega tu primera cita</p>
+                    @empty
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-pink-50">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold bg-gradient-to-br from-pink-100 to-pink-200 text-pink-700">
+                                💆
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-pink-900">Sin citas aún</p>
+                                <p class="text-xs text-pink-700">Agrega tu primera cita</p>
+                            </div>
+                            <span class="bg-pink-200 text-pink-700 rounded-full px-2 py-0.5 text-[10px] font-semibold">hoy</span>
                         </div>
-                        <span class="bg-pink-200 text-pink-700 rounded-full px-2 py-0.5 text-[10px] font-semibold">hoy</span>
-                    </div>
+                    @endforelse
                 </div>
+
                 <div class="mt-4">
                     <a href="{{ route('citas.create') }}" class="bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl px-5 py-2.5 font-semibold text-sm transition duration-200 hover:opacity-90 hover:-translate-y-0.5 inline-flex items-center gap-2 shadow-sm w-full justify-center">
                         + Agendar cita
@@ -103,25 +120,25 @@
                             <span class="text-lg">💅</span>
                             <span class="text-sm font-medium text-pink-900">Servicios registrados</span>
                         </div>
-                        <span class="font-bold text-lg text-pink-500">—</span>
+                        <span class="font-bold text-lg text-pink-500">{{ $serviciosActivosContador }}</span>
                     </div>
                     <div class="flex items-center justify-between p-3 rounded-xl bg-pink-50">
                         <div class="flex items-center gap-2">
                             <span class="text-lg">👩</span>
                             <span class="text-sm font-medium text-pink-900">Clientes registradas</span>
                         </div>
-                        <span class="font-bold text-lg text-pink-500">—</span>
+                        <span class="font-bold text-lg text-pink-500">{{ $clientesContador }}</span>
                     </div>
                     <div class="flex items-center justify-between p-3 rounded-xl bg-pink-50">
                         <div class="flex items-center gap-2">
                             <span class="text-lg">📅</span>
                             <span class="text-sm font-medium text-pink-900">Citas este mes</span>
                         </div>
-                        <span class="font-bold text-lg text-pink-500">—</span>
+                        <span class="font-bold text-lg text-pink-500">{{ $citasMesContador }}</span>
                     </div>
                 </div>
                 <p class="text-xs mt-4 text-center text-pink-700">
-                    Conecta tus datos reales desde los controladores 🌸
+                    Haz clic en "Agendar cita" para crear una nueva cita
                 </p>
             </div>
 
