@@ -1,80 +1,83 @@
 <x-app-layout>
 
-    <div class="py-6 px-6">
+    <div class="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
 
-        <h1 class="text-3xl font-bold mb-6">
-            Servicios
-        </h1>
-@if(auth()->user()->role === 'admin')
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
 
-        <a href="{{ route('servicios.create') }}"
-           class="bg-pink-500 text-white px-4 py-2 rounded">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800">✨ Servicios</h1>
+                <p class="text-sm text-gray-500 mt-1">Catálogo de servicios disponibles</p>
+            </div>
 
-            Nuevo Servicio
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('servicios.create') }}"
+                   class="inline-flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white font-semibold px-5 py-2.5 rounded-lg shadow transition duration-200">
+                    + Nuevo Servicio
+                </a>
+            @endif
 
-        </a>
-@endif
-        <div class="mt-6 bg-white shadow rounded p-4">
+        </div>
 
-            <table class="w-full">
+        <div class="bg-white shadow-md rounded-xl overflow-hidden">
 
-                <thead>
-                    <tr>
-                        <th class="text-left">Nombre</th>
-                        <th class="text-left">Precio</th>
-                        <th class="text-left">Acciones</th>
-                    </tr>
-                </thead>
+            <div class="overflow-x-auto">
 
-                <tbody>
+                <table class="w-full text-sm text-gray-700">
 
-                    @foreach($servicios as $servicio)
-
-                        <tr class="border-t">
-
-                            <td class="py-3">
-                                {{ $servicio->nombre }}
-                            </td>
-
-                            <td>
-                                ${{ $servicio->precio_base }}
-                            </td>
-@if(auth()->user()->role === 'admin')
-
-                            <td class="space-x-2">
-
-                                <a href="{{ route('servicios.edit', $servicio) }}"
-                                   class="text-blue-500">
-
-                                    Editar
-
-                                </a>
-
-                                <form action="{{ route('servicios.destroy', $servicio) }}"
-                                      method="POST"
-                                      class="inline">
-
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button class="text-red-500">
-
-                                        Eliminar
-
-                                    </button>
-
-                                </form>
-
-                            </td>
-@if(auth()->user()->role === 'admin')
-
+                    <thead class="bg-pink-50 text-pink-700 uppercase text-xs tracking-wider">
+                        <tr>
+                            <th class="px-6 py-4 text-left">Nombre</th>
+                            <th class="px-6 py-4 text-left">Precio</th>
+                            @if(auth()->user()->role === 'admin')
+                                <th class="px-6 py-4 text-left">Acciones</th>
+                            @endif
                         </tr>
+                    </thead>
 
-                    @endforeach
+                    <tbody class="divide-y divide-gray-100">
 
-                </tbody>
+                        @foreach($servicios as $servicio)
 
-            </table>
+                            <tr class="hover:bg-pink-50 transition duration-150">
+
+                                <td class="px-6 py-4 font-medium">{{ $servicio->nombre }}</td>
+
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+                                        ${{ $servicio->precio_base }}
+                                    </span>
+                                </td>
+
+                                @if(auth()->user()->role === 'admin')
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+
+                                            <a href="{{ route('servicios.edit', $servicio) }}"
+                                               class="text-blue-500 hover:text-blue-700 font-medium transition">Editar</a>
+
+                                            <form action="{{ route('servicios.destroy', $servicio) }}"
+                                                  method="POST"
+                                                  class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="text-red-500 hover:text-red-700 font-medium transition">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
+                                @endif
+
+                            </tr>
+
+                        @endforeach
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 
